@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Afi Style — Vitrine QR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --indigo:#241F3B;
+  --rose:#D2356B;
+  --ocre:#E39B2E;
+  --vert:#1F7A5C;
+  --papier:#FAF4F0;
+  --carte:#FFFFFF;
+  --texte:#241F3B;
+  --texte-doux:#6E667F;
+  --trait:#EADFD8;
+  --ombre:0 1px 0 rgba(36,31,59,.06), 0 8px 24px -16px rgba(36,31,59,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papier:#151222;
+    --carte:#211C33;
+    --texte:#F4EFEA;
+    --texte-doux:#A79DBA;
+    --trait:#332B4A;
+    --rose:#F0538A;
+    --ocre:#F0B44A;
+    --ombre:0 1px 0 rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --papier:#151222;
+  --carte:#211C33;
+  --texte:#F4EFEA;
+  --texte-doux:#A79DBA;
+  --trait:#332B4A;
+  --rose:#F0538A;
+  --ombre:0 1px 0 rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--papier);
+  color:var(--texte);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+img,video{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ocre);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+.wrap{max-width:560px;margin:0 auto;padding:0 18px 120px}
+
+/* ---------- Entête ---------- */
+.top{padding:26px 0 8px}
+.ident{display:flex;gap:14px;align-items:center}
+.avatar{width:66px;height:66px;border-radius:50%;flex:0 0 auto;
+  background:conic-gradient(from 200deg,var(--rose),var(--ocre),var(--vert),var(--rose));
+  display:grid;place-items:center;color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:26px}
+.nom{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:27px;line-height:1.1;margin:0}
+.pseudo{color:var(--texte-doux);font-size:14px;margin:3px 0 0}
+.bio{margin:14px 0 0;font-size:15px;max-width:46ch}
+
+.live{display:inline-flex;align-items:center;gap:7px;background:var(--rose);color:#fff;
+  padding:5px 11px 5px 9px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:10px}
+.pastille{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+.liens{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.lien{border:1.5px solid var(--trait);background:var(--carte);padding:9px 15px;border-radius:999px;
+  font-size:14px;font-weight:600;display:inline-flex;gap:7px;align-items:center}
+.lien.plein{background:var(--vert);border-color:var(--vert);color:#fff}
+
+/* ---------- Recherche par numéro ---------- */
+.numero-box{margin:26px 0 8px;background:var(--indigo);border-radius:20px;padding:20px;color:#F4EFEA}
+.numero-box h2{font-family:"Bricolage Grotesque",sans-serif;font-size:19px;margin:0 0 4px;font-weight:700}
+.numero-box p{margin:0 0 14px;font-size:14px;color:#BDB4CF}
+.numero-champ{display:flex;gap:9px}
+.numero-champ input{flex:1;min-width:0;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);
+  color:#fff;border-radius:12px;padding:12px 14px;font-size:17px;font-weight:600}
+.numero-champ input::placeholder{color:#8F86A5}
+.numero-champ button{background:var(--ocre);color:#241F3B;font-weight:700;border-radius:12px;padding:12px 18px}
+
+/* ---------- Catalogue ---------- */
+.section-titre{font-family:"Bricolage Grotesque",sans-serif;font-size:22px;font-weight:700;margin:34px 0 4px}
+.section-sous{color:var(--texte-doux);font-size:14px;margin:0 0 18px}
+
+.article{background:var(--carte);border-radius:20px;box-shadow:var(--ombre);overflow:hidden;margin-bottom:18px}
+.article.vise{outline:3px solid var(--ocre)}
+.photo-zone{position:relative;background:var(--trait)}
+.photo-zone img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.badge-num{position:absolute;top:12px;left:12px;background:var(--indigo);color:#fff;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:15px;padding:6px 12px;border-radius:10px}
+.badge-neuf{position:absolute;top:12px;right:12px;background:var(--ocre);color:#241F3B;
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px}
+
+.corps{padding:16px 16px 18px}
+.ligne-titre{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.article h3{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;font-weight:700;margin:0}
+.prix{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:18px;white-space:nowrap}
+.tailles{display:flex;gap:6px;margin:10px 0 0;flex-wrap:wrap}
+.taille{border:1.5px solid var(--trait);border-radius:8px;padding:3px 9px;font-size:13px;color:var(--texte-doux)}
+
+.preuves{margin-top:16px;border-top:1px solid var(--trait);padding-top:14px}
+.preuves-tete{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.preuves-tete span{font-size:14px;font-weight:600}
+.preuves-tete em{font-style:normal;color:var(--texte-doux);font-size:13px}
+.bande{display:flex;gap:9px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.vignette{flex:0 0 auto;width:60px;height:60px;border-radius:50%;overflow:hidden;
+  border:2.5px solid var(--rose);padding:2px;background:var(--carte)}
+.vignette img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.vignette.lien-tt{display:grid;place-items:center;font-size:22px;border-color:var(--indigo)}
+.vide-preuve{color:var(--texte-doux);font-size:13px;margin:0}
+
+.commander{margin-top:16px;width:100%;background:var(--vert);color:#fff;font-weight:700;
+  padding:14px;border-radius:14px;font-size:16px}
+
+/* ---------- Visionneuse ---------- */
+.viewer{position:fixed;inset:0;background:rgba(12,9,22,.94);z-index:60;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.viewer.on{display:flex}
+.viewer-inner{max-width:420px;width:100%;text-align:center}
+.viewer-inner img,.viewer-inner video{width:100%;border-radius:18px;max-height:74vh;object-fit:contain}
+.viewer p{color:#EDE7F5;font-size:14px;margin:14px 0 0}
+.viewer .fermer{position:absolute;top:16px;right:18px;color:#fff;font-size:30px;line-height:1;padding:6px 12px}
+.viewer .fleche{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:34px;padding:10px 14px}
+.fleche.g{left:2px}.fleche.d{right:2px}
+
+/* ---------- Gestion ---------- */
+.barre-gestion{position:fixed;left:0;right:0;bottom:0;background:var(--carte);border-top:1px solid var(--trait);
+  padding:10px 18px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;justify-content:center;z-index:40}
+.barre-gestion button{border:1.5px solid var(--trait);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600}
+.barre-gestion .qr-btn{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.barre-gestion .live-btn{background:var(--rose);color:#fff;border-color:var(--rose)}
+
+.vedette{background:var(--carte);border:2.5px solid var(--rose);border-radius:20px;overflow:hidden;
+  margin:26px 0 0;box-shadow:var(--ombre)}
+.vedette-tete{background:var(--rose);color:#fff;padding:9px 16px;font-size:14px;font-weight:600;
+  display:flex;align-items:center;gap:8px}
+.vedette-corps{display:flex;gap:14px;padding:14px 16px 16px;align-items:center}
+.vedette-corps img{width:82px;height:104px;object-fit:cover;border-radius:12px;flex:0 0 auto}
+.vedette-corps h3{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;margin:0 0 2px}
+.vedette-corps .prix{font-size:17px}
+.vedette-corps a{display:inline-block;margin-top:8px;background:var(--vert);color:#fff;
+  text-decoration:none;font-weight:700;font-size:14px;padding:9px 15px;border-radius:11px}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;background:var(--indigo);color:#fff;
+  padding:12px 20px;border-radius:999px;font-size:14px;font-weight:600;z-index:90;box-shadow:var(--ombre);
+  max-width:88%;text-align:center}
+.grand-champ input{font-size:20px!important;font-weight:700!important;padding:14px!important}
+.capture{display:block;border:2px dashed var(--rose);border-radius:16px;padding:26px 18px;text-align:center;
+  font-size:16px;font-weight:600;color:var(--rose);margin-bottom:14px}
+.capture input{display:none}
+.rappel-num{font-family:"Bricolage Grotesque",sans-serif;font-size:34px;font-weight:800;text-align:center;
+  margin:4px 0 2px;color:var(--rose)}
+.rappel-txt{text-align:center;color:var(--texte-doux);font-size:14px;margin:0 0 16px}
+
+.panneau{position:fixed;inset:0;background:var(--papier);z-index:70;overflow-y:auto;display:none}
+.panneau.on{display:block}
+.panneau-inner{max-width:560px;margin:0 auto;padding:22px 18px 80px}
+.panneau h2{font-family:"Bricolage Grotesque",sans-serif;font-size:24px;margin:0 0 2px}
+.panneau .sous{color:var(--texte-doux);font-size:14px;margin:0 0 22px}
+.bloc{background:var(--carte);border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:var(--ombre)}
+.bloc h3{font-family:"Bricolage Grotesque",sans-serif;font-size:17px;margin:0 0 12px}
+label.champ{display:block;margin-bottom:12px;font-size:14px;font-weight:600}
+label.champ input,label.champ select{width:100%;margin-top:6px;background:var(--papier);
+  border:1.5px solid var(--trait);border-radius:11px;padding:11px 13px;font-weight:400}
+.fichier{display:block;border:1.8px dashed var(--trait);border-radius:14px;padding:18px;text-align:center;
+  font-size:14px;color:var(--texte-doux);margin-bottom:12px}
+.fichier input{display:none}
+.valider{width:100%;background:var(--rose);color:#fff;font-weight:700;padding:13px;border-radius:13px}
+.info{font-size:13px;color:var(--texte-doux);margin:10px 0 0}
+.info.ok{color:var(--vert);font-weight:600}
+.info.alerte{color:var(--rose);font-weight:600}
+.jauge{height:7px;background:var(--trait);border-radius:99px;overflow:hidden;margin-top:8px}
+.jauge span{display:block;height:100%;background:var(--vert)}
+.apercu{width:84px;height:105px;object-fit:cover;border-radius:10px;margin:0 auto 12px}
+.fermer-panneau{position:sticky;top:0;float:right;font-size:15px;font-weight:600;color:var(--rose);padding:4px}
+#qr-cible{display:grid;place-items:center;padding:16px;background:#fff;border-radius:14px;margin:8px auto 0;width:fit-content}
+.lien-page{font-size:12px;color:var(--texte-doux);word-break:break-all;margin-top:10px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="live"><i class="pastille"></i>En live tous les soirs à 20h</div>
+    <div class="ident">
+      <div class="avatar">A</div>
+      <div>
+        <h1 class="nom">Afi Style</h1>
+        <p class="pseudo">@afistyle_lome · Prêt-à-porter femme</p>
+      </div>
+    </div>
+    <p class="bio">Robes, ensembles et pagnes cousus à Lomé. Livraison dans toute la ville le jour même, envoi en province par gare.</p>
+    <div class="liens">
+      <a class="lien plein" href="https://wa.me/22890000000">Écrire sur WhatsApp</a>
+      <a class="lien" href="tel:+22890000000">Appeler</a>
+      <a class="lien" href="https://www.tiktok.com/">Voir le TikTok</a>
+    </div>
+  </header>
+
+  <section class="numero-box">
+    <h2>Vous suivez le live ?</h2>
+    <p>Tapez le numéro annoncé pour retrouver l'article, son prix et les photos des clientes qui le portent.</p>
+    <div class="numero-champ">
+      <input id="rech" type="number" inputmode="numeric" placeholder="Ex. 12" aria-label="Numéro de l'article">
+      <button id="btn-rech">Trouver</button>
+    </div>
+  </section>
+
+  <div id="vedette-zone"></div>
+
+  <h2 class="section-titre">La collection</h2>
+  <p class="section-sous">Prix en FCFA. Les cercles roses sous chaque article sont de vraies clientes.</p>
+  <div id="catalogue"></div>
+</div>
+
+<div class="barre-gestion">
+  <button class="live-btn" id="btn-live">Mode live</button>
+  <button class="qr-btn" id="btn-qr">Mon QR code</button>
+  <button id="btn-gestion">Gestion</button>
+</div>
+
+<!-- Visionneuse de preuves -->
+<div class="viewer" id="viewer" role="dialog" aria-modal="true">
+  <button class="fermer" id="v-fermer" aria-label="Fermer">×</button>
+  <button class="fleche g" id="v-prec" aria-label="Précédent">‹</button>
+  <button class="fleche d" id="v-suiv" aria-label="Suivant">›</button>
+  <div class="viewer-inner" id="v-contenu"></div>
+</div>
+
+<!-- Panneau mode live -->
+<div class="panneau" id="panneau-live">
+  <div class="panneau-inner">
+    <button class="fermer-panneau" data-ferme="panneau-live">Fermer</button>
+    <h2>Mode live</h2>
+    <p class="sous">Pour publier un article en quelques secondes pendant le direct.</p>
+
+    <div class="bloc" id="bloc-code-live">
+      <h3>Code d'accès</h3>
+      <label class="champ">Entrez le code
+        <input id="code-live" type="password" inputmode="numeric" placeholder="4 chiffres">
+      </label>
+      <button class="valider" id="btn-code-live">Ouvrir le mode live</button>
+      <p class="info" id="code-live-info"></p>
+    </div>
+
+    <div id="zone-live" hidden>
+      <div class="bloc">
+        <p class="rappel-num" id="prochain-num">N° 14</p>
+        <p class="rappel-txt">Annoncez ce numéro à voix haute pendant le live.</p>
+        <label class="capture">
+          <input type="file" id="f-live" accept="image/*" capture="environment">
+          <span id="f-live-txt">Prendre la photo de l'article</span>
+        </label>
+        <img id="apercu-live" class="apercu" alt="" hidden>
+        <label class="champ grand-champ">Prix en FCFA
+          <input id="l-prix" type="number" inputmode="numeric" placeholder="15000">
+        </label>
+        <label class="champ">Nom de l'article
+          <input id="l-nom" type="text" placeholder="Ex. Robe rouge">
+        </label>
+        <label class="champ">Tailles
+          <input id="l-tailles" type="text" placeholder="S, M, L">
+        </label>
+        <button class="valider" id="btn-live-pub">Publier et mettre en avant</button>
+        <p class="info" id="info-live">La page reste ouverte : enchaînez article après article.</p>
+      </div>
+
+      <div class="bloc">
+        <h3>Article mis en avant</h3>
+        <p class="info" id="vedette-actuelle">Aucun pour l'instant.</p>
+        <p class="info">Le bandeau disparaît tout seul 3 heures après la publication. La page, elle, reste consultable jour et nuit.</p>
+        <button class="valider" id="btn-retirer-vedette" style="background:var(--indigo);margin-top:12px">Terminer le live maintenant</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Panneau QR -->
+<div class="panneau" id="panneau-qr">
+  <div class="panneau-inner">
+    <button class="fermer-panneau" data-ferme="panneau-qr">Fermer</button>
+    <h2>Le QR code de la boutique</h2>
+    <p class="sous">À imprimer sur les cartes, les sachets, ou à mettre en photo de profil TikTok.</p>
+    <div class="bloc">
+      <div id="qr-cible"></div>
+      <p class="lien-page" id="lien-page"></p>
+      <p class="info">Scannez-le avec un autre téléphone pour vérifier qu'il ouvre bien cette page.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Panneau gestion -->
+<div class="panneau" id="panneau-gestion">
+  <div class="panneau-inner">
+    <button class="fermer-panneau" data-ferme="panneau-gestion">Fermer</button>
+    <h2>Espace gestion</h2>
+    <p class="sous">Réservé à la vendeuse. Les photos sont réduites automatiquement avant d'être enregistrées.</p>
+
+    <div class="bloc" id="bloc-code">
+      <h3>Code d'accès</h3>
+      <label class="champ">Entrez le code
+        <input id="code" type="password" inputmode="numeric" placeholder="4 chiffres">
+      </label>
+      <button class="valider" id="btn-code">Ouvrir</button>
+      <p class="info" id="code-info"></p>
+    </div>
+
+    <div id="zone-gestion" hidden>
+      <div class="bloc">
+        <h3>Ajouter une nouveauté</h3>
+        <label class="fichier">
+          <input type="file" id="f-article" accept="image/*">
+          <span id="f-article-txt">Choisir la photo de l'article</span>
+        </label>
+        <img id="apercu-article" class="apercu" alt="" hidden>
+        <label class="champ">Nom de l'article
+          <input id="a-nom" type="text" placeholder="Ex. Ensemble pagne Adjo">
+        </label>
+        <label class="champ">Prix en FCFA
+          <input id="a-prix" type="number" inputmode="numeric" placeholder="Ex. 18000">
+        </label>
+        <label class="champ">Tailles disponibles
+          <input id="a-tailles" type="text" placeholder="S, M, L">
+        </label>
+        <button class="valider" id="btn-article">Publier l'article</button>
+        <p class="info" id="info-article"></p>
+      </div>
+
+      <div class="bloc">
+        <h3>Ajouter une preuve cliente</h3>
+        <label class="champ">Sur quel article ?
+          <select id="p-article"></select>
+        </label>
+        <label class="fichier">
+          <input type="file" id="f-preuve" accept="image/*,video/*">
+          <span id="f-preuve-txt">Choisir une photo (ou une vidéo courte)</span>
+        </label>
+        <img id="apercu-preuve" class="apercu" alt="" hidden>
+        <label class="champ">Ou coller le lien de la vidéo TikTok
+          <input id="p-lien" type="url" placeholder="https://www.tiktok.com/...">
+        </label>
+        <label class="champ">Prénom de la cliente
+          <input id="p-nom" type="text" placeholder="Ex. Akouvi">
+        </label>
+        <button class="valider" id="btn-preuve">Publier la preuve</button>
+        <p class="info" id="info-preuve">Demandez toujours son accord à la cliente avant de publier sa photo.</p>
+      </div>
+
+      <div class="bloc">
+        <h3>Changer mon code</h3>
+        <label class="champ">Nouveau code (4 à 8 chiffres)
+          <input id="nouveau-code" type="text" inputmode="numeric" placeholder="Ex. 2580">
+        </label>
+        <label class="champ">Retapez-le pour confirmer
+          <input id="nouveau-code2" type="text" inputmode="numeric" placeholder="Ex. 2580">
+        </label>
+        <button class="valider" id="btn-changer-code">Enregistrer le nouveau code</button>
+        <p class="info" id="info-code-chg">Notez-le quelque part : personne ne peut le retrouver à votre place.</p>
+      </div>
+
+      <div class="bloc">
+        <h3>Poids de la page</h3>
+        <p class="info" id="poids-txt">Calcul en cours…</p>
+        <div class="jauge"><span id="poids-jauge" style="width:0%"></span></div>
+        <button class="valider" id="btn-vider" style="background:var(--indigo);margin-top:14px">Tout remettre à zéro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var CLE = "vitrine_afi_v1";
+  var WHATSAPP = "22890000000";
+  var LIMITE = 4.5 * 1024 * 1024; // marge de sécurité du stockage local
+
+  /* ---------- Images de démonstration (dessinées, pas téléchargées) ---------- */
+  function motif(c1, c2, titre){
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500">' +
+      '<rect width="400" height="500" fill="'+c1+'"/>' +
+      '<circle cx="90" cy="120" r="120" fill="'+c2+'" opacity=".55"/>' +
+      '<circle cx="330" cy="360" r="150" fill="'+c2+'" opacity=".35"/>' +
+      '<path d="M0 420 Q200 330 400 430 L400 500 L0 500 Z" fill="'+c2+'" opacity=".7"/>' +
+      '<text x="200" y="265" font-family="sans-serif" font-size="26" font-weight="700" fill="#fff" ' +
+      'text-anchor="middle" opacity=".9">'+titre+'</text></svg>';
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  }
+  function tete(c){
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">' +
+      '<rect width="120" height="120" fill="'+c+'"/>' +
+      '<circle cx="60" cy="46" r="22" fill="#fff" opacity=".85"/>' +
+      '<path d="M18 120 Q60 74 102 120 Z" fill="#fff" opacity=".85"/></svg>';
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  }
+
+  var BASE = [
+    {id:"a1", num:11, nom:"Robe longue Sika", prix:22000, tailles:"S, M, L", img:motif("#D2356B","#E39B2E","Robe Sika"),
+     preuves:[{t:"img", src:tete("#1F7A5C"), nom:"Akouvi", txt:"Portée au mariage de sa sœur"},
+              {t:"img", src:tete("#E39B2E"), nom:"Délali", txt:"Taille M, retouche gratuite"}]},
+    {id:"a2", num:12, nom:"Ensemble pagne Adjo", prix:18000, tailles:"M, L, XL", img:motif("#1F7A5C","#E39B2E","Ensemble Adjo"),
+     preuves:[{t:"img", src:tete("#D2356B"), nom:"Sena", txt:"Commandé pendant le live de mardi"},
+              {t:"lien", src:"https://www.tiktok.com/", nom:"Mawulé", txt:"Vidéo d'essayage sur TikTok"},
+              {t:"img", src:tete("#241F3B"), nom:"Afiwa", txt:"Livrée à Kara en 2 jours"}]},
+    {id:"a3", num:13, nom:"Chemisier Yawa", prix:9500, tailles:"S, M", img:motif("#241F3B","#D2356B","Chemisier Yawa"),
+     preuves:[{t:"img", src:tete("#1F7A5C"), nom:"Elom", txt:"Sa troisième commande"}]}
+  ];
+
+  /* ---------- Stockage ---------- */
+  function charger(){
+    try{
+      var brut = localStorage.getItem(CLE);
+      if(!brut) return JSON.parse(JSON.stringify(BASE));
+      var d = JSON.parse(brut);
+      return Array.isArray(d) && d.length ? d : JSON.parse(JSON.stringify(BASE));
+    }catch(e){ return JSON.parse(JSON.stringify(BASE)); }
+  }
+  function sauver(){
+    try{
+      localStorage.setItem(CLE, JSON.stringify(articles));
+      return {ok:true};
+    }catch(e){
+      return {ok:false, msg:"Le téléphone n'a plus de place. Supprimez quelques anciennes preuves avant d'en ajouter."};
+    }
+  }
+  var articles = charger();
+
+  /* ---------- Code d'accès personnalisable ---------- */
+  var CLE_CODE = "vitrine_afi_code";
+  function lireCode(){
+    try{ return localStorage.getItem(CLE_CODE) || "1234"; }catch(e){ return "1234"; }
+  }
+  function ecrireCode(c){
+    try{ localStorage.setItem(CLE_CODE, c); return true; }catch(e){ return false; }
+  }
+
+  /* ---------- Fin automatique du live ---------- */
+  var DUREE_VEDETTE = 3 * 60 * 60 * 1000;
+  function nettoyerVedette(){
+    var chg = false;
+    articles.forEach(function(a){
+      if(a.vedette && a.depuis && (Date.now() - a.depuis) > DUREE_VEDETTE){ a.vedette = false; chg = true; }
+    });
+    if(chg) sauver();
+  }
+  nettoyerVedette();
+
+  /* ---------- Compression ---------- */
+  function comprimer(fichier, cote, qualite){
+    return new Promise(function(res, rej){
+      var url = URL.createObjectURL(fichier);
+      var im = new Image();
+      im.onload = function(){
+        var r = Math.min(1, cote / Math.max(im.width, im.height));
+        var c = document.createElement("canvas");
+        c.width = Math.round(im.width * r);
+        c.height = Math.round(im.height * r);
+        c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        try{ res(c.toDataURL("image/jpeg", qualite)); }
+        catch(e){ rej(new Error("Cette image n'a pas pu être lue.")); }
+      };
+      im.onerror = function(){ URL.revokeObjectURL(url); rej(new Error("Ce fichier n'est pas une image valide.")); };
+      im.src = url;
+    });
+  }
+  function ko(n){ return Math.round(n/1024) + " Ko"; }
+  function poidsData(s){ return Math.round((s.length * 3) / 4); }
+
+  /* ---------- Affichage du catalogue ---------- */
+  var cat = document.getElementById("catalogue");
+  function dessiner(){
+    cat.innerHTML = "";
+    articles.forEach(function(a){
+      var el = document.createElement("article");
+      el.className = "article";
+      el.id = "art-" + a.num;
+
+      var h = '<div class="photo-zone"><img src="'+a.img+'" alt="'+a.nom+'" loading="lazy">' +
+              '<div class="badge-num">N° '+a.num+'</div>' +
+              (a.neuf ? '<div class="badge-neuf">Nouveauté</div>' : '') + '</div>';
+
+      h += '<div class="corps"><div class="ligne-titre"><h3>'+a.nom+'</h3>' +
+           '<div class="prix">'+Number(a.prix).toLocaleString("fr-FR")+' F</div></div>';
+
+      if(a.tailles){
+        h += '<div class="tailles">' + a.tailles.split(",").map(function(t){
+          return '<span class="taille">'+t.trim()+'</span>'; }).join("") + '</div>';
+      }
+
+      h += '<div class="preuves"><div class="preuves-tete"><span>Elles l\'ont porté</span>';
+      h += '<em>'+ (a.preuves.length ? a.preuves.length + (a.preuves.length>1?" clientes":" cliente") : "") +'</em></div>';
+      if(a.preuves.length){
+        h += '<div class="bande">';
+        a.preuves.forEach(function(p, i){
+          if(p.t === "lien"){
+            h += '<button class="vignette lien-tt" data-art="'+a.id+'" data-i="'+i+'" aria-label="Vidéo de '+p.nom+'">▶</button>';
+          } else {
+            h += '<button class="vignette" data-art="'+a.id+'" data-i="'+i+'" aria-label="Photo de '+p.nom+'"><img src="'+p.src+'" alt=""></button>';
+          }
+        });
+        h += '</div>';
+      } else {
+        h += '<p class="vide-preuve">Soyez la première à envoyer votre photo avec cet article.</p>';
+      }
+      h += '</div>';
+
+      var msg = encodeURIComponent("Bonjour Afi Style, je veux commander l'article n° " + a.num + " — " + a.nom + " (" + a.prix + " F).");
+      h += '<a class="commander" style="display:block;text-align:center;text-decoration:none" href="https://wa.me/'+WHATSAPP+'?text='+msg+'">Commander sur WhatsApp</a>';
+      h += '</div>';
+
+      el.innerHTML = h;
+      cat.appendChild(el);
+    });
+    remplirSelect();
+    dessinerVedette();
+    majProchainNum();
+    majPoids();
+  }
+
+  function prochainNum(){
+    return articles.reduce(function(m,a){ return Math.max(m, a.num); }, 10) + 1;
+  }
+  function majProchainNum(){
+    var e = document.getElementById("prochain-num");
+    if(e) e.textContent = "N° " + prochainNum();
+  }
+
+  function dessinerVedette(){
+    var z = document.getElementById("vedette-zone");
+    var v = articles.filter(function(a){ return a.vedette; })[0];
+    var info = document.getElementById("vedette-actuelle");
+    if(!v){
+      z.innerHTML = "";
+      if(info) info.textContent = "Aucun pour l'instant.";
+      return;
+    }
+    if(info) info.textContent = "N° " + v.num + " — " + v.nom;
+    var msg = encodeURIComponent("Bonjour Afi Style, je prends l'article n° " + v.num + " — " + v.nom + ".");
+    z.innerHTML =
+      '<div class="vedette"><div class="vedette-tete"><i class="pastille"></i>En ce moment dans le live</div>' +
+      '<div class="vedette-corps"><img src="'+v.img+'" alt="'+v.nom+'"><div>' +
+      '<h3>N° '+v.num+' — '+v.nom+'</h3>' +
+      '<div class="prix">'+Number(v.prix).toLocaleString("fr-FR")+' F</div>' +
+      '<a href="https://wa.me/'+WHATSAPP+'?text='+msg+'">Je le prends</a>' +
+      '</div></div></div>';
+  }
+
+  function toast(txt){
+    var t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = txt;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 3200);
+  }
+
+  /* ---------- Visionneuse ---------- */
+  var viewer = document.getElementById("viewer");
+  var vContenu = document.getElementById("v-contenu");
+  var suite = [], pos = 0;
+
+  cat.addEventListener("click", function(e){
+    var b = e.target.closest(".vignette");
+    if(!b) return;
+    var a = articles.filter(function(x){ return x.id === b.dataset.art; })[0];
+    if(!a) return;
+    suite = a.preuves; pos = parseInt(b.dataset.i, 10);
+    ouvrirViewer();
+  });
+  function ouvrirViewer(){
+    var p = suite[pos];
+    if(!p) return;
+    var corps;
+    if(p.t === "lien"){
+      corps = '<a href="'+p.src+'" style="display:block;padding:50px 20px;background:#241F3B;border-radius:18px;color:#fff;text-decoration:none;font-weight:600">Ouvrir la vidéo sur TikTok</a>';
+    } else if(p.t === "video"){
+      corps = '<video src="'+p.src+'" controls playsinline></video>';
+    } else {
+      corps = '<img src="'+p.src+'" alt="Photo de '+p.nom+'">';
+    }
+    vContenu.innerHTML = corps + '<p><strong>'+p.nom+'</strong> — '+(p.txt || "cliente vérifiée")+'</p>';
+    viewer.classList.add("on");
+  }
+  document.getElementById("v-fermer").onclick = function(){ viewer.classList.remove("on"); vContenu.innerHTML=""; };
+  document.getElementById("v-suiv").onclick = function(){ if(pos < suite.length-1){ pos++; ouvrirViewer(); } };
+  document.getElementById("v-prec").onclick = function(){ if(pos > 0){ pos--; ouvrirViewer(); } };
+  viewer.addEventListener("click", function(e){ if(e.target === viewer){ viewer.classList.remove("on"); } });
+
+  /* ---------- Recherche par numéro ---------- */
+  function chercher(){
+    var v = document.getElementById("rech").value.trim();
+    if(!v) return;
+    var el = document.getElementById("art-" + v);
+    document.querySelectorAll(".article").forEach(function(x){ x.classList.remove("vise"); });
+    if(el){
+      el.classList.add("vise");
+      el.scrollIntoView({behavior:"smooth", block:"center"});
+    } else {
+      alert("Aucun article ne porte le numéro " + v + " pour l'instant.");
+    }
+  }
+  document.getElementById("btn-rech").onclick = chercher;
+  document.getElementById("rech").addEventListener("keydown", function(e){ if(e.key === "Enter") chercher(); });
+
+  /* ---------- Panneaux ---------- */
+  function ouvrir(id){ document.getElementById(id).classList.add("on"); }
+  document.querySelectorAll("[data-ferme]").forEach(function(b){
+    b.onclick = function(){ document.getElementById(b.dataset.ferme).classList.remove("on"); };
+  });
+  document.getElementById("btn-gestion").onclick = function(){ ouvrir("panneau-gestion"); };
+  document.getElementById("btn-live").onclick = function(){ ouvrir("panneau-live"); majProchainNum(); };
+
+  /* ---------- Mode live ---------- */
+  var photoLive = null;
+  document.getElementById("btn-code-live").onclick = function(){
+    if(document.getElementById("code-live").value.trim() === lireCode()){
+      document.getElementById("bloc-code-live").hidden = true;
+      document.getElementById("zone-live").hidden = false;
+      majProchainNum(); dessinerVedette();
+    } else {
+      var i = document.getElementById("code-live-info");
+      i.textContent = "Code incorrect. Réessayez.";
+      i.className = "info alerte";
+    }
+  };
+
+  document.getElementById("f-live").addEventListener("change", function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var info = document.getElementById("info-live");
+    info.className = "info"; info.textContent = "Réduction de la photo…";
+    comprimer(f, 1000, 0.68).then(function(d){
+      photoLive = d;
+      var ap = document.getElementById("apercu-live");
+      ap.src = d; ap.hidden = false;
+      document.getElementById("f-live-txt").textContent = "Photo prête — changer";
+      info.className = "info ok";
+      info.textContent = "Photo réduite de " + ko(f.size) + " à " + ko(poidsData(d)) + ".";
+      document.getElementById("l-prix").focus();
+    }).catch(function(err){
+      info.className = "info alerte"; info.textContent = err.message;
+    });
+  });
+
+  document.getElementById("btn-live-pub").onclick = function(){
+    var info = document.getElementById("info-live");
+    var prix = document.getElementById("l-prix").value.trim();
+    var nom = document.getElementById("l-nom").value.trim();
+    if(!photoLive || !prix){
+      info.className = "info alerte";
+      info.textContent = "Il faut au minimum la photo et le prix.";
+      return;
+    }
+    var n = prochainNum();
+    articles.forEach(function(a){ a.vedette = false; });
+    articles.unshift({
+      id:"a" + Date.now(), num:n, nom:nom || ("Article n° " + n), prix:Number(prix),
+      tailles:document.getElementById("l-tailles").value.trim(),
+      img:photoLive, neuf:true, vedette:true, depuis:Date.now(), preuves:[]
+    });
+    var r = sauver();
+    if(!r.ok){ articles.shift(); info.className="info alerte"; info.textContent = r.msg; return; }
+    dessiner();
+    toast("Article n° " + n + " en ligne");
+    info.className = "info ok";
+    info.textContent = "N° " + n + " publié et mis en avant. Au suivant.";
+    photoLive = null;
+    document.getElementById("l-prix").value = "";
+    document.getElementById("l-nom").value = "";
+    document.getElementById("l-tailles").value = "";
+    document.getElementById("f-live").value = "";
+    document.getElementById("apercu-live").hidden = true;
+    document.getElementById("f-live-txt").textContent = "Prendre la photo de l'article";
+  };
+
+  document.getElementById("btn-retirer-vedette").onclick = function(){
+    articles.forEach(function(a){ a.vedette = false; });
+    sauver(); dessiner();
+    toast("Mise en avant retirée");
+  };
+  document.getElementById("btn-qr").onclick = function(){ ouvrir("panneau-qr"); faireQR(); };
+
+  var qrFait = false;
+  function faireQR(){
+    var lien = window.location.href.split("#")[0];
+    document.getElementById("lien-page").textContent = lien;
+    if(qrFait) return;
+    var cible = document.getElementById("qr-cible");
+    if(typeof QRCode === "undefined"){
+      cible.innerHTML = '<p class="info alerte" style="max-width:220px">Le générateur de QR n\'a pas pu se charger. Vérifiez la connexion et rouvrez cette fenêtre.</p>';
+      return;
+    }
+    new QRCode(cible, {text: lien, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M});
+    qrFait = true;
+  }
+
+  /* ---------- Code d'accès ---------- */
+  document.getElementById("btn-code").onclick = function(){
+    if(document.getElementById("code").value.trim() === lireCode()){
+      document.getElementById("bloc-code").hidden = true;
+      document.getElementById("zone-gestion").hidden = false;
+      majPoids();
+    } else {
+      var i = document.getElementById("code-info");
+      i.textContent = "Code incorrect. Réessayez.";
+      i.className = "info alerte";
+    }
+  };
+
+  /* ---------- Ajout d'un article ---------- */
+  var photoArticle = null;
+  document.getElementById("f-article").addEventListener("change", function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var info = document.getElementById("info-article");
+    info.className = "info"; info.textContent = "Réduction de la photo…";
+    comprimer(f, 1100, 0.72).then(function(d){
+      photoArticle = d;
+      var ap = document.getElementById("apercu-article");
+      ap.src = d; ap.hidden = false;
+      document.getElementById("f-article-txt").textContent = f.name;
+      info.className = "info ok";
+      info.textContent = "Photo réduite de " + ko(f.size) + " à " + ko(poidsData(d)) + ".";
+    }).catch(function(err){
+      info.className = "info alerte"; info.textContent = err.message;
+    });
+  });
+
+  document.getElementById("btn-article").onclick = function(){
+    var nom = document.getElementById("a-nom").value.trim();
+    var prix = document.getElementById("a-prix").value.trim();
+    var info = document.getElementById("info-article");
+    if(!photoArticle || !nom || !prix){
+      info.className = "info alerte";
+      info.textContent = "Il manque la photo, le nom ou le prix.";
+      return;
+    }
+    var maxNum = articles.reduce(function(m,a){ return Math.max(m, a.num); }, 10);
+    articles.push({
+      id:"a" + Date.now(), num:maxNum + 1, nom:nom, prix:Number(prix),
+      tailles:document.getElementById("a-tailles").value.trim(),
+      img:photoArticle, neuf:true, preuves:[]
+    });
+    var r = sauver();
+    if(!r.ok){ articles.pop(); info.className="info alerte"; info.textContent = r.msg; return; }
+    dessiner();
+    info.className = "info ok";
+    info.textContent = "Publié sous le numéro " + (maxNum + 1) + ".";
+    photoArticle = null;
+    document.getElementById("a-nom").value = "";
+    document.getElementById("a-prix").value = "";
+    document.getElementById("a-tailles").value = "";
+    document.getElementById("apercu-article").hidden = true;
+    document.getElementById("f-article-txt").textContent = "Choisir la photo de l'article";
+  };
+
+  /* ---------- Ajout d'une preuve ---------- */
+  var preuveData = null, preuveType = null;
+  document.getElementById("f-preuve").addEventListener("change", function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var info = document.getElementById("info-preuve");
+    var ap = document.getElementById("apercu-preuve");
+
+    if(f.type.indexOf("video") === 0){
+      if(f.size > 2 * 1024 * 1024){
+        info.className = "info alerte";
+        info.textContent = "Cette vidéo pèse " + ko(f.size) + ", c'est trop lourd pour la page. Prenez un clip de 15 secondes maximum, ou collez plutôt le lien TikTok ci-dessous.";
+        e.target.value = ""; return;
+      }
+      var lect = new FileReader();
+      lect.onload = function(){
+        preuveData = lect.result; preuveType = "video";
+        ap.hidden = true;
+        document.getElementById("f-preuve-txt").textContent = f.name;
+        info.className = "info ok";
+        info.textContent = "Vidéo acceptée (" + ko(f.size) + ").";
+      };
+      lect.readAsDataURL(f);
+      return;
+    }
+
+    info.className = "info"; info.textContent = "Réduction de la photo…";
+    comprimer(f, 900, 0.7).then(function(d){
+      preuveData = d; preuveType = "img";
+      ap.src = d; ap.hidden = false;
+      document.getElementById("f-preuve-txt").textContent = f.name;
+      info.className = "info ok";
+      info.textContent = "Photo réduite de " + ko(f.size) + " à " + ko(poidsData(d)) + ".";
+    }).catch(function(err){
+      info.className = "info alerte"; info.textContent = err.message;
+    });
+  });
+
+  document.getElementById("btn-preuve").onclick = function(){
+    var info = document.getElementById("info-preuve");
+    var idArt = document.getElementById("p-article").value;
+    var nom = document.getElementById("p-nom").value.trim() || "Cliente";
+    var lien = document.getElementById("p-lien").value.trim();
+    var a = articles.filter(function(x){ return x.id === idArt; })[0];
+    if(!a){ info.className="info alerte"; info.textContent = "Choisissez d'abord un article."; return; }
+
+    var p;
+    if(lien){ p = {t:"lien", src:lien, nom:nom, txt:"Vidéo d'essayage sur TikTok"}; }
+    else if(preuveData){ p = {t:preuveType, src:preuveData, nom:nom, txt:"Cliente d'Afi Style"}; }
+    else { info.className="info alerte"; info.textContent = "Ajoutez une photo, une vidéo courte ou un lien TikTok."; return; }
+
+    a.preuves.push(p);
+    var r = sauver();
+    if(!r.ok){ a.preuves.pop(); info.className="info alerte"; info.textContent = r.msg; return; }
+    dessiner();
+    info.className = "info ok";
+    info.textContent = "Preuve ajoutée à « " + a.nom + " ».";
+    preuveData = null; preuveType = null;
+    document.getElementById("p-nom").value = "";
+    document.getElementById("p-lien").value = "";
+    document.getElementById("apercu-preuve").hidden = true;
+    document.getElementById("f-preuve-txt").textContent = "Choisir une photo (ou une vidéo courte)";
+  };
+
+  function remplirSelect(){
+    var s = document.getElementById("p-article");
+    if(!s) return;
+    var garde = s.value;
+    s.innerHTML = articles.map(function(a){
+      return '<option value="'+a.id+'">N° '+a.num+' — '+a.nom+'</option>'; }).join("");
+    if(garde) s.value = garde;
+  }
+
+  /* ---------- Poids ---------- */
+  function majPoids(){
+    var t = document.getElementById("poids-txt");
+    if(!t) return;
+    var total = JSON.stringify(articles).length;
+    var pct = Math.min(100, Math.round(total / LIMITE * 100));
+    document.getElementById("poids-jauge").style.width = pct + "%";
+    t.className = pct > 80 ? "info alerte" : "info";
+    t.textContent = "La page pèse " + ko(total) + " sur " + ko(LIMITE) + " disponibles (" + pct + " %). " +
+      (pct > 80 ? "Supprimez d'anciennes preuves avant d'en ajouter." : "Il reste de la place pour de nouvelles photos.");
+  }
+
+  document.getElementById("btn-vider").onclick = function(){
+    if(!confirm("Effacer tous les articles et preuves ajoutés, et revenir à la démo de départ ?")) return;
+    try{ localStorage.removeItem(CLE); }catch(e){}
+    articles = charger();
+    dessiner();
+  };
+
+  /* ---------- Changement de code ---------- */
+  function indiceCode(){
+    var t = (lireCode() === "1234") ? "Code de la démo : 1234" : "Code personnalisé actif.";
+    ["code-info","code-live-info"].forEach(function(id){
+      var e = document.getElementById(id);
+      if(e){ e.textContent = t; e.className = "info"; }
+    });
+  }
+  indiceCode();
+
+  document.getElementById("btn-changer-code").onclick = function(){
+    var a = document.getElementById("nouveau-code").value.trim();
+    var b = document.getElementById("nouveau-code2").value.trim();
+    var info = document.getElementById("info-code-chg");
+    if(!/^[0-9]{4,8}$/.test(a)){
+      info.className = "info alerte";
+      info.textContent = "Le code doit contenir entre 4 et 8 chiffres.";
+      return;
+    }
+    if(a !== b){
+      info.className = "info alerte";
+      info.textContent = "Les deux codes ne sont pas identiques.";
+      return;
+    }
+    if(!ecrireCode(a)){
+      info.className = "info alerte";
+      info.textContent = "Le code n'a pas pu être enregistré sur cet appareil.";
+      return;
+    }
+    document.getElementById("nouveau-code").value = "";
+    document.getElementById("nouveau-code2").value = "";
+    info.className = "info ok";
+    info.textContent = "Code modifié. C'est celui-ci qu'il faudra utiliser désormais.";
+    indiceCode();
+    toast("Nouveau code enregistré");
+  };
+
+  setInterval(function(){ nettoyerVedette(); dessinerVedette(); }, 60000);
+
+  dessiner();
+})();
+</script>
+</body>
+</html>
